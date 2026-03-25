@@ -26,14 +26,14 @@ p0 = 1.0;    % initial state covariance  uncertainty in U at t=0: larger p0 → 
 I_k    = eye(Ku+1);
 P      = p0*eye(Ku+1);
 Q      = q*I_k;
-%% Reference Signal — first half: multi-step, second half: sinusoidal
+%% Reference Signal
 t    = (0:N+Ky-2)'*Ts;
 half = floor(length(t)/2);
 seg  = floor(half/4);
 ref_step = [0.4*ones(seg,1); 0.8*ones(seg,1); 1.2*ones(seg,1); 0.8*ones(half-3*seg,1)];
 ref_sin  = 0.3*sin(0.5*pi*t(1:length(t)-half))+0.8;
 yref     = [ref_step; ref_sin];
-%% Offline: MPC Matrices
+%% MPC Matrices
 [M, Z] = mpc_matrices(A, b, c, Ku, Ky);
 H      = M;
 
@@ -128,4 +128,3 @@ for k = Ku+2:Ky
     M(k, Ku+1) = M(k, Ku+1) + acc;
 end
 end
-
