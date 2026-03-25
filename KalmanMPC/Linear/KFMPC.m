@@ -3,7 +3,6 @@ clc; clear all; close all; warning off;
 % Linear Discrete-Time MPC & Kalman Filter Based Optimization
 % Date: 26.03.2026
 %%
-
 A = [1.1 0.6; 0.2 0.1];  % System Matrix
 b = [1; 0]; % Input Matrix
 c = [1 1]'; % Output Matrix
@@ -18,15 +17,15 @@ umin      = -1;   % input lower bound   (hard constraint, applied after every up
 umax      =  1;   % input upper bound   (hard constraint, applied after every update)
 deltaumax = 0.2;  % max input rate      (maximum allowed change in u between consecutive steps)
 
-plot_interval = 10;   % plot refresh rate
+plot_interval = 50;   % plot refresh rate
 
 %% Kalman Tuning
 q  = 1e-2;   % process noise covariance   larger q → bigger K → aggressive update (analogous to small lambda)
 r  = 1e-1;   % measurement noise covariance larger r → smaller K → smooth update (analogous to large lambda)
 p0 = 1.0;    % initial state covariance  uncertainty in U at t=0: larger p0 → faster adaptation in early steps
 I_k    = eye(Ku+1);
-P      = p0 * eye(Ku+1);
-Q      = q * I_k;
+P      = p0*eye(Ku+1);
+Q      = q*I_k;
 %% Reference Signal — first half: multi-step, second half: sinusoidal
 t    = (0:N+Ky-2)'*Ts;
 half = floor(length(t)/2);
@@ -129,3 +128,4 @@ for k = Ku+2:Ky
     M(k, Ku+1) = M(k, Ku+1) + acc;
 end
 end
+
