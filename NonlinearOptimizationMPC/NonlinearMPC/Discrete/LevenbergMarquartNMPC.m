@@ -18,7 +18,7 @@ lamda     = 1;
 nu_lm_init  = 1;
 s           = 1;
 lm_max_iter = 50;
-plot_interval = 100;
+plot_interval = 50;
 % Tridiagonal delta-u penalty matrix (Ku+1 x Ku+1)
 L = 2*eye(Ku+1);  L(end,end) = 1;
 for k = 1:Ku
@@ -39,7 +39,6 @@ u = zeros(Ku+1, N+1); u(:,1) = zeros(Ku+1, 1);
 y = zeros(1, N+1);    y(1)   = c' * x(:,1);
 
 figure('units','normalized','outerposition',[0 0 1 1],'color','w')
-
 for i = 1:N
 
     nu_lm  = nu_lm_init;                  % reset damping — prevents carry-over
