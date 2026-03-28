@@ -41,7 +41,7 @@ y = zeros(1, N+1);    y(1)   = c' * x(:,1);
 figure('units','normalized','outerposition',[0 0 1 1],'color','w')
 for i = 1:N
 
-    nu_lm  = nu_lm_init;                  % reset damping — prevents carry-over
+    nu_lm  = nu_lm_init;                  % reset damping, prevents carry-over
     U_k    = [u(2:end,i); u(end,i)];      % shifted warm start
     u_prev = u(1,i);
 
